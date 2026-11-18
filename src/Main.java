@@ -6,20 +6,20 @@ public class Main {
 }
 
     public static void run() {
-        PohligHellman ph = new PohligHellman(67);
+        PohligHellman ph = new PohligHellman();
 
-        BigInteger enKey = ph.generateEnKey(); //NOTDONE
-        BigInteger deKey = ph.generateDeKey(enKey); //WORKING
-        BigInteger message = ph.getMessage(); //WORKING
-        BigInteger prime = ph.getPrime(); //WORKING
+        BigInteger message = ph.getMessage();
+        System.out.println("Your initial message is " + message);
 
-       BigInteger ciphText = ph.encrypt(message, enKey, prime); //SHOULDWORK
-       System.out.println(ciphText);
+        BigInteger enKey = ph.generateEnKey();
+        BigInteger deKey = ph.generateDeKey(enKey);
+        
+       BigInteger ciphText = ph.encrypt(message, enKey);
+       System.out.println("\nCipher text is " + ciphText);
 
-       BigInteger decMessage = ph.decrpyt(ciphText, deKey, prime); //SHOUDLWORK
+       BigInteger decMessage = ph.decrpyt(ciphText, deKey);
 
        int decIntMessage = decMessage.intValue();
-       //translate back to ascii??
-       System.out.println("Decrypted message is " + decIntMessage + "!");
+       System.out.println("\nDecrypted message is " + decIntMessage + "!");
     }
 }
