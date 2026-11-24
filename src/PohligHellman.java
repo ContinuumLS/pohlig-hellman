@@ -2,13 +2,12 @@ import java.math.*;
 import java.security.SecureRandom;
 
 /* TO-DO:
-** rewrite probablyPrime (Can't remember which primality test he suggested)
 ** rewrite modInverse
 ** rewrite modPow
 ** rewrite gcd (Euclid Alg)
 **
 ** Might Be Cool:
-** potentially write fucntions to convert string messages of length>1 char to and from integer form?
+** potentially write functions to convert string messages of length>1 char to and from integer form?
 ** write a program to try and fail to crack it - "Describe how Eve can try to break the system through all possible attacks." might best be documented through implementing attacks
 */
 public class PohligHellman {
@@ -39,10 +38,10 @@ public class PohligHellman {
 
     // Mutators
 
-    // REWRITE OUR OWN VERSION - rewrite probablyPrime
     public static BigInteger generatePrime(){
         SecureRandom rand = new SecureRandom();
-        BigInteger prime = BigInteger.probablePrime(1024, rand);
+        //BigInteger prime = BigInteger.probablePrime(1024, rand);
+        BigInteger prime = generateBigPrimeInt(308);
         return prime;
     }
 
@@ -88,8 +87,28 @@ public class PohligHellman {
             BigInteger randBig = BigInteger.valueOf(rand.nextInt(0,10));
             bigNum = bigNum.multiply(BigInteger.TEN.pow(1)).add(randBig);
         }
-        bigNum = bigNum.multiply(BigInteger.TEN.pow(1)).add(BigInteger.valueOf(rand.nextInt(0, 5) + 1));
+        bigNum = bigNum.multiply(BigInteger.TEN.pow(1)).add(BigInteger.valueOf(2*(rand.nextInt(0, 5)) + 1));
         return bigNum;
+    }
+
+    // NOT WORKING
+    public static BigInteger generateBigPrimeInt(int bigIntLength){
+        BigInteger bigPrime = BigInteger.ZERO;
+        BigInteger candidate = BigInteger.ZERO;
+        Boolean probPrime = false;
+        Boolean testResult;
+
+        while(probPrime != true){
+            candidate = generateBigInteger(bigIntLength);
+            PrimalityTest pt = new PrimalityTest(candidate);
+            testResult = pt.test(10);
+            if (testResult == true){
+                bigPrime = candidate;
+                probPrime = true;
+            }
+        }
+
+        return bigPrime;
     }
 
     // REWRITE OUR OWN VERSION - rewrite gcd
