@@ -10,7 +10,7 @@ public class Main {
 
         BigInteger message = ph.getMessage();
         System.out.println("Your initial message is " + message);
-        System.out.println("Your prime number is " + ph.prime);
+        System.out.println("Your prime number is " + ph.getPrime());
 
         BigInteger enKey = ph.generateEnKey();
         BigInteger deKey = ph.generateDeKey(enKey);

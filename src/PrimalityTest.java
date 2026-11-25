@@ -7,6 +7,7 @@ import java.util.Random;
  * primality algorithm.
  */
 public class PrimalityTest {
+    // JC: Use seeded RNG value for consistent results
     private static final Random rng = new Random(42);
     private BigInteger n;
     private BigInteger nMinusOne;
@@ -30,10 +31,8 @@ public class PrimalityTest {
      * @return true if probably prime, false if composite
      */
     public boolean test(int k) {
-        if (n.compareTo(new BigInteger("3")) != 1) {
-            return false;
-        }
-        if (n.mod(BigInteger.TWO).equals(BigInteger.ZERO)) {
+        if (n.compareTo(new BigInteger("3")) != 1 ||
+            n.mod(BigInteger.TWO).equals(BigInteger.ZERO)) {
             return false;
         }
 
@@ -55,7 +54,7 @@ public class PrimalityTest {
     }
 
     private boolean millerRabin(BigInteger d) {
-        // Choose random a in [2, n-2]
+        // Choose random a in [2, n-2] (and hope we don't get a repeat)
         BigInteger a;
         do {
             // Assert a >= 2
